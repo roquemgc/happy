@@ -6,11 +6,22 @@ import mapMarkerImg from '../images/map-marker.svg';
 
 import '../styles/components/sidebar.css'
 
-export default function Sidebar() {
+export default function Sidebar(props?: any) {
     const { goBack } = useHistory();
     return (
-        <aside className="app-sidebar">
+      <aside className="app-sidebar">
         <img src={mapMarkerImg} alt="Happy" />
+
+        {props.dashboard  ? (
+          <div>
+            <p>
+              doidera
+            </p>
+          </div>
+        ) : (
+          <div >
+          </div>
+        ) }
 
         <footer>
           <button type="button" onClick={goBack}>

@@ -4,18 +4,20 @@ import cors from 'cors'
 
 import 'express-async-errors';
 
-import './database/connection'; // Conexão com banco de dados ORM
-
 import routes from './routes'
 import errorHandler from './errors/handler'
+
+import './database/connection'; // Conexão com banco de dados ORM
 
 const app = express();
 
 app.use(cors())
 app.use(express.json()); // Sinaliza para o express que json será recebido de requisições
 app.use(routes);
-app.use('/uploads', express.static(path.join(__dirname, '..', 'uploads')));
 app.use(errorHandler);
+
+app.use('/uploads', express.static(path.join(__dirname, '..', 'uploads')));
+
 
 app.listen(3333);
 

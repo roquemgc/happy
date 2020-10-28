@@ -43,7 +43,7 @@
 
 .content-wrapper .location {
     position: absolute;
-    right: 0;
+    left: 300px;
     top: 15px;
 
     font-size: 24px;
@@ -59,8 +59,36 @@
     font-weight: 800;
 }
 
-.content-wrapper .enter-app {
+.content-wrapper a {
     position: absolute;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    transition: background-color 0.2s;
+}
+
+.content-wrapper .enter-restricted-access {
+    top: 15px;
+    right: 0;
+
+    width: 220px;
+    height: 55px;
+    background: #12D4E0;
+    border-radius: 20px;
+
+    text-decoration: none;
+    color: #ffffff;
+    font-weight: 800;
+}
+
+.content-wrapper .enter-restricted-access:hover {
+    background: #96FEFF;
+    color: #15C3D6;
+}
+
+.content-wrapper .enter-app {
     right: 0;
     bottom: 15px;
 
@@ -68,12 +96,6 @@
     height: 80px;
     background: #ffd666;
     border-radius: 30px;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    transition: background-color 0.2s;
 }
 
 .content-wrapper .enter-app:hover {
