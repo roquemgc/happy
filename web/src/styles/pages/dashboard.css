@@ -1,0 +1,59 @@
+header {
+    margin: 0 100px 25px 170px;
+    padding-top: 25px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    border-bottom: 1px solid #D3E2E5;
+}
+
+header h1 {
+    color: #4D6F80;
+}
+
+header p {
+    color: #8FA7B2;
+}
+
+main .leaflet-container {
+    margin-bottom: 0;
+}
+
+main .orphanages-list {
+    display: flex;
+    margin-left: 120px;
+} 
+
+main .orphanages-list .orphanage {
+    width: 450px;
+    margin: 0 50px 50px;
+
+    border: 1px solid #D3E2E5;
+    border-radius: 20px;
+
+    background-color: #FFF;
+} 
+
+main .orphanages-list .orphanage .orphanage-name {
+    padding: 12px 25px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+main .orphanages-list .orphanage .orphanage-name h2 {
+    color: #4D6F80;
+    font-size: 24px;
+}
+
+main .orphanages-list .orphanage .orphanage-name button {
+    height: 35px;
+    width: 38px;
+    margin-left: 10px;
+
+    border: 0;
+    border-radius: 8px;
+    cursor: pointer;
+}
