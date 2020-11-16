@@ -48,11 +48,11 @@ aside .dashboard-itens {
   align-items: center;
 }
 
-aside.app-sidebar .dashboard-itens a {
+aside.app-sidebar .dashboard-itens a:first-child {
   margin-bottom: 10px;
 }
 
-aside.app-sidebar .dashboard-itens a:target {
+aside.app-sidebar .dashboard-itens a.selected {
   background-color: #FFD666;
 }
 

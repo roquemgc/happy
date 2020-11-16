@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { useHistory, NavLink } from 'react-router-dom';
+import { useHistory, Link, NavLink } from 'react-router-dom';
 
 import mapMarkerImg from '../images/map-marker.svg';
 import { FiArrowLeft } from 'react-icons/fi'
@@ -21,11 +21,12 @@ export default function Sidebar(props?: any) {
               <NavLink
                 to="/dashboard"
                 activeClassName="selected"
+                exact={true}
               >
                 <FiMapPin size={24} color="#FFF" />
               </NavLink>
               <NavLink
-                to="/dashboard"
+                to="/dashboard/pending-registrations"
                 activeClassName="selected"
               >
                 <FiInfo size={24} color="#FFF" />

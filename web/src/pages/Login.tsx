@@ -63,7 +63,7 @@ function Login() {
 
           </fieldset>
 
-          <Link to="/dashboard/#target1">
+          <Link to="/dashboard">
             <button disabled={ false } className="confirm-button" type="submit">
               Entrar
             </button>

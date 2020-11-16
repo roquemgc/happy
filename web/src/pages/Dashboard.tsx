@@ -7,12 +7,10 @@ import mapIcon from '../utils/mapIcon'
 
 import '../styles/pages/dashboard.css';
 
-function Login() {
+function Dashboard() {
 
   return(
     <div id="dashboard" >
-      <Sidebar dashboard={true} ></Sidebar>
-
       <header>
         <h1>
           Orfanatos cadastrados
@@ -165,4 +163,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Dashboard;
