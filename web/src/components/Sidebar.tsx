@@ -1,13 +1,11 @@
 import React from 'react'
 
-import { useHistory } from 'react-router-dom';
-import {Link} from 'react-router-dom'
+import { useHistory, NavLink } from 'react-router-dom';
 
 import mapMarkerImg from '../images/map-marker.svg';
 import { FiArrowLeft } from 'react-icons/fi'
 import { FiInfo } from 'react-icons/fi'
 import { FiMapPin } from 'react-icons/fi'
-import { FiPower } from 'react-icons/fi'
 
 import '../styles/components/sidebar.css'
 
@@ -16,34 +14,43 @@ export default function Sidebar(props?: any) {
     
     return (
       <aside className="app-sidebar">
-        <img src={mapMarkerImg} alt="Happy" />
-
         { props.dashboard ? (
-          <div className="dashboard-itens">
-            <a href="#target1" id="target1" className="target default-target">
-              <FiMapPin size={24} color="#FFF" />
-            </a>
-            <a href="#target2" id="target2" className="target">
-              <FiInfo size={24} color="#FFF" />
-            </a> 
+          <div className="sidebar-itens">
+            <img src={mapMarkerImg} alt="Happy" />
+            <nav className="dashboard-itens">
+              <NavLink
+                to="/dashboard"
+                activeClassName="selected"
+              >
+                <FiMapPin size={24} color="#FFF" />
+              </NavLink>
+              <NavLink
+                to="/dashboard"
+                activeClassName="selected"
+              >
+                <FiInfo size={24} color="#FFF" />
+              </NavLink>
+            </nav>
+
+            <footer>
+              <button type="button" onClick={goBack}>
+                <FiArrowLeft size={24} color="#FFF" />
+              </button>
+            </footer>
           </div>
         ): (
-          <p/>
+          <div className="sidebar-itens">
+            <img src={mapMarkerImg} alt="Happy" />
+            <footer>
+              <button type="button" onClick={goBack}>
+                <FiArrowLeft strokeWidth={3} size={24} color="#FFF" />
+              </button>
+            </footer>
+          </div>
+
         )}
         
-        { props.dashboard ? (
-          <footer>
-              <button type="button" onClick={goBack}>
-                <FiPower strokeWidth={3} size={24} color="#FFF" />
-              </button>
-          </footer>
-        ) : (
-          <footer>
-            <button type="button" onClick={goBack}>
-              <FiArrowLeft size={24} color="#FFF" />
-            </button>
-          </footer>
-        ) }
+
 
 
       </aside>

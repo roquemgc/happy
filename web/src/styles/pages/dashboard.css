@@ -1,4 +1,4 @@
-header {
+#dashboard header {
     margin: 0 100px 25px 170px;
     padding-top: 25px;
 
@@ -9,50 +9,58 @@ header {
     border-bottom: 1px solid #D3E2E5;
 }
 
-header h1 {
+#dashboard header h1 {
     color: #4D6F80;
 }
 
-header p {
+#dashboard header p {
     color: #8FA7B2;
 }
 
-main .leaflet-container {
-    margin-bottom: 0;
-}
-
-main .orphanages-list {
-    display: flex;
+#dashboard main .orphanages-list {
     margin-left: 120px;
+    display: flex;
 } 
 
-main .orphanages-list .orphanage {
+#dashboard main .orphanages-list .orphanage {
     width: 450px;
     margin: 0 50px 50px;
+    overflow: hidden;
 
     border: 1px solid #D3E2E5;
     border-radius: 20px;
-
     background-color: #FFF;
 } 
 
-main .orphanages-list .orphanage .orphanage-name {
+#dashboard main .orphanages-list .orphanage .orphanage-menu {
     padding: 12px 25px;
+
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
-main .orphanages-list .orphanage .orphanage-name h2 {
+#dashboard main .orphanages-list .orphanage .orphanage-menu h2 {
     color: #4D6F80;
     font-size: 24px;
 }
 
-main .orphanages-list .orphanage .orphanage-name button {
+#dashboard main .orphanages-list .orphanage .orphanage-menu .button-container {
+    width: 85px;
+
+    display: flex;
+    justify-content: space-between;
+}
+
+
+#dashboard main .orphanages-list .orphanage .orphanage-menu button {
     height: 35px;
     width: 38px;
-    margin-left: 10px;
 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
     border: 0;
     border-radius: 8px;
     cursor: pointer;

@@ -35,7 +35,6 @@ function Login() {
                 url={`https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/256/{z}/{x}/{y}@2x?access_token=${process.env.REACT_APP_MAP_TOKEN}`}
               />
 
-
               <Marker 
                 interactive={false} 
                 icon={mapIcon} 
@@ -45,16 +44,16 @@ function Login() {
               
             </Map>
 
-            <div className="orphanage-name">
+            <div className="orphanage-menu">
               <h2>Orfanato esperança</h2>
-              <span> 
-                <button>
-                  <FiTrash size={20} color="#15C3D6"></FiTrash>
-                </button>
+              <div className="button-container"> 
                 <button>
                   <FiEdit3 size={20} color="#15C3D6"></FiEdit3>
                 </button>
-              </span>
+                <button>
+                  <FiTrash size={20} color="#15C3D6"></FiTrash>
+                </button>
+              </div>
             </div>
           </div>
 
