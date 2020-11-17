@@ -1,11 +1,12 @@
 import React from 'react'
-import Sidebar from '../components/Sidebar';
 import { Map, Marker, TileLayer,  } from 'react-leaflet';
 
 import { FiTrash, FiEdit3, FiArrowRight } from 'react-icons/fi'
+import Grid from '@material-ui/core'
 import mapIcon from '../utils/mapIcon'
 
 import '../styles/pages/dashboard.css';
+import classes from '*.module.css';
 
 function Dashboard() {
 
@@ -21,6 +22,9 @@ function Dashboard() {
       </header>
     
       <main>
+        <Grid container className={classes.root} spacing={2}>
+          
+        </Grid>
         <div className="orphanages-list">
           <div className="orphanage">         
             <Map 

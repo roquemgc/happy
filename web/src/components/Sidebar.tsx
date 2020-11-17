@@ -50,10 +50,6 @@ export default function Sidebar(props?: any) {
           </div>
 
         )}
-        
-
-
-
       </aside>
     );
 }

@@ -1,6 +1,12 @@
+#dashboard {
+    width: calc(100% - 80px);
+    padding: 25px;
+    float: right
+}
+
 #dashboard header {
-    margin: 0 100px 25px 170px;
-    padding-top: 25px;
+    margin-bottom: 25px;
+    padding: 0 10px;
 
     display: flex;
     justify-content: space-between;
@@ -18,13 +24,12 @@
 }
 
 #dashboard main .orphanages-list {
-    margin-left: 120px;
     display: flex;
+    justify-content: center;
 } 
 
 #dashboard main .orphanages-list .orphanage {
     width: 450px;
-    margin: 0 50px 50px;
     overflow: hidden;
 
     border: 1px solid #D3E2E5;
