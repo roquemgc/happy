@@ -55,7 +55,7 @@ aside.app-sidebar .dashboard-itens a.selected {
   background-color: #FFD666;
 }
 
-aside.app-sidebar  .dashboard-itens a:target svg * {
+aside.app-sidebar  .dashboard-itens a.selected svg * {
   color: #0089A5;
 }
 

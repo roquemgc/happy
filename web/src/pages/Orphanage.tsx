@@ -22,7 +22,6 @@ interface Orphanage {
     id: string;
     url: string;
   }>;
-
 }
 
 interface OrphanageParams {
@@ -42,8 +41,7 @@ export default function Orphanage() {
 
   if(!orphanage) {
     return <p>Carregando...</p>
-}
-
+  }
   
   return (
     <div id="page-orphanage">

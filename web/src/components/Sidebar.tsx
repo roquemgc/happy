@@ -3,15 +3,18 @@ import React from 'react'
 import { useHistory, Link, NavLink } from 'react-router-dom';
 
 import mapMarkerImg from '../images/map-marker.svg';
-import { FiArrowLeft } from 'react-icons/fi'
+import { FiPower, FiArrowLeft } from 'react-icons/fi'
 import { FiInfo } from 'react-icons/fi'
 import { FiMapPin } from 'react-icons/fi'
 
 import '../styles/components/sidebar.css'
 
-export default function Sidebar(props?: any) {
+interface Props {
+  dashboard?: boolean;
+}
+export default function Sidebar(props: Props) {
     const { goBack } = useHistory();
-    
+
     return (
       <aside className="app-sidebar">
         { props.dashboard ? (
@@ -34,9 +37,9 @@ export default function Sidebar(props?: any) {
             </nav>
 
             <footer>
-              <button type="button" onClick={goBack}>
-                <FiArrowLeft size={24} color="#FFF" />
-              </button>
+              <Link to="/login">
+                <FiPower size={24} color="#FFF" />
+              </Link>
             </footer>
           </div>
         ): (

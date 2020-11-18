@@ -1,168 +1,47 @@
-import React from 'react'
-import { Map, Marker, TileLayer,  } from 'react-leaflet';
+import React, { useEffect, useState } from 'react'
 
-import { FiTrash, FiEdit3, FiArrowRight } from 'react-icons/fi'
-import Grid from '@material-ui/core'
-import mapIcon from '../utils/mapIcon'
-
+import OrphanageCard from '../components/OrphanageCard'
 import '../styles/pages/dashboard.css';
-import classes from '*.module.css';
+
+import api from '../services/api'
+
+interface Orphanage {
+  id: number;
+  name: string;
+  latitude: number;
+  longitude: number;
+}
 
 function Dashboard() {
 
+  const [orphanages, setOrphanages] = useState<Orphanage[]>([]);
+
+  useEffect(() => {
+      api.get('orphanages').then(response => {
+          setOrphanages(response.data); 
+      }); 
+  }, []);
+
   return(
-    <div id="dashboard" >
+    <div className="dashboard-item" id="dashboard" >
       <header>
         <h1>
           Orfanatos cadastrados
         </h1>
         <p>
-          2 orfanatos encontrados
+          {orphanages.length} orfanatos encontrados
         </p>
       </header>
-    
       <main>
-        <Grid container className={classes.root} spacing={2}>
+        <div className="orphanages-list">
+          {orphanages ? (
+            <OrphanageCard dashboard={true} orphanages={orphanages} />
+          ): (
+            <p>Não há orfanatos cadastrados</p>
+          )} 
           
-        </Grid>
-        <div className="orphanages-list">
-          <div className="orphanage">         
-            <Map 
-              center={[-22.9031684, -47.1849677]} 
-              style={{ width: '100%', height: 200 }}
-              zoom={15}
-              onClick={()=>{}}
-            >
-              <TileLayer 
-                url={`https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/256/{z}/{x}/{y}@2x?access_token=${process.env.REACT_APP_MAP_TOKEN}`}
-              />
-
-              <Marker 
-                interactive={false} 
-                icon={mapIcon} 
-                position={[1, -2]} 
-              /> 
-                )
-              
-            </Map>
-
-            <div className="orphanage-menu">
-              <h2>Orfanato esperança</h2>
-              <div className="button-container"> 
-                <button>
-                  <FiEdit3 size={20} color="#15C3D6"></FiEdit3>
-                </button>
-                <button>
-                  <FiTrash size={20} color="#15C3D6"></FiTrash>
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <div className="orphanage">         
-            <Map 
-              center={[-22.9031684, -47.1849677]} 
-              style={{ width: '100%', height: 200 }}
-              zoom={15}
-              onClick={()=>{}}
-            >
-              <TileLayer 
-                url={`https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/256/{z}/{x}/{y}@2x?access_token=${process.env.REACT_APP_MAP_TOKEN}`}
-              />
-
-
-              <Marker 
-                interactive={false} 
-                icon={mapIcon} 
-                position={[1, -2]} 
-              /> 
-                )
-              
-            </Map>
-
-            <div className="orphanage-name">
-              <h2>Orfanato esperança</h2>
-              <span> 
-                <button>
-                  <FiTrash size={20} color="#15C3D6"></FiTrash>
-                </button>
-                <button>
-                  <FiEdit3 size={20} color="#15C3D6"></FiEdit3>
-                </button>
-              </span>
-            </div>
-          </div>
         </div>
-
-        <div className="orphanages-list">
-          <div className="orphanage">         
-            <Map 
-              center={[-22.9031684, -47.1849677]} 
-              style={{ width: '100%', height: 200 }}
-              zoom={15}
-              onClick={()=>{}}
-            >
-              <TileLayer 
-                url={`https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/256/{z}/{x}/{y}@2x?access_token=${process.env.REACT_APP_MAP_TOKEN}`}
-              />
-
-
-              <Marker 
-                interactive={false} 
-                icon={mapIcon} 
-                position={[1, -2]} 
-              /> 
-                )
-              
-            </Map>
-
-            <div className="orphanage-name">
-              <h2>Orfanato esperança</h2>
-              <span> 
-                <button>
-                  <FiTrash size={20} color="#15C3D6"></FiTrash>
-                </button>
-                <button>
-                  <FiEdit3 size={20} color="#15C3D6"></FiEdit3>
-                </button>
-              </span>
-            </div>
-          </div>
-
-          <div className="orphanage">         
-            <Map 
-              center={[-22.9031684, -47.1849677]} 
-              style={{ width: '100%', height: 200 }}
-              zoom={15}
-              onClick={()=>{}}
-            >
-              <TileLayer 
-                url={`https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/256/{z}/{x}/{y}@2x?access_token=${process.env.REACT_APP_MAP_TOKEN}`}
-              />
-
-
-              <Marker 
-                interactive={false} 
-                icon={mapIcon} 
-                position={[1, -2]} 
-              /> 
-                )
-              
-            </Map>
-
-            <div className="orphanage-name">
-              <h2>Orfanato esperança</h2>
-              <span> 
-                <button>
-                  <FiArrowRight size={20} color="#15C3D6"></FiArrowRight>
-                </button>
-              </span>
-            </div>
-          </div>
-        </div>
-      
       </main>
-
     </div>
   );
 }

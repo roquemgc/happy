@@ -1,10 +1,10 @@
-#dashboard {
+.dashboard-item {
     width: calc(100% - 80px);
     padding: 25px;
     float: right
 }
 
-#dashboard header {
+.dashboard-item header {
     margin-bottom: 25px;
     padding: 0 10px;
 
@@ -15,58 +15,10 @@
     border-bottom: 1px solid #D3E2E5;
 }
 
-#dashboard header h1 {
+.dashboard-item header h1 {
     color: #4D6F80;
 }
 
-#dashboard header p {
+.dashboard-item header p {
     color: #8FA7B2;
-}
-
-#dashboard main .orphanages-list {
-    display: flex;
-    justify-content: center;
-} 
-
-#dashboard main .orphanages-list .orphanage {
-    width: 450px;
-    overflow: hidden;
-
-    border: 1px solid #D3E2E5;
-    border-radius: 20px;
-    background-color: #FFF;
-} 
-
-#dashboard main .orphanages-list .orphanage .orphanage-menu {
-    padding: 12px 25px;
-
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-#dashboard main .orphanages-list .orphanage .orphanage-menu h2 {
-    color: #4D6F80;
-    font-size: 24px;
-}
-
-#dashboard main .orphanages-list .orphanage .orphanage-menu .button-container {
-    width: 85px;
-
-    display: flex;
-    justify-content: space-between;
-}
-
-
-#dashboard main .orphanages-list .orphanage .orphanage-menu button {
-    height: 35px;
-    width: 38px;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    
-    border: 0;
-    border-radius: 8px;
-    cursor: pointer;
 }

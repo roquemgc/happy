@@ -8,15 +8,13 @@ import mapMarkerImg from '../images/map-marker.svg'
 import mapIcon from '../utils/mapIcon'
 
 import '../styles/pages/orphanage-map.css'
-import api from '../services/api'
-
+import api from '../services/api' 
 
 interface Orphanages {
     id: number;
     name: string;
     latitude: number;
     longitude: number;
-
 }
 
 function OrphanagesMap() {
@@ -27,8 +25,7 @@ function OrphanagesMap() {
             setOrphanages(response.data); 
         }); 
     }, []);
-
-
+    
     return (
         <div id="page-map">
             <aside>

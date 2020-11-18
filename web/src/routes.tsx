@@ -24,6 +24,7 @@ function Routes() {
         <Route path="/forgot-password" component={ForgotPassword} />
 
         <Route path="/orphanages/create" component={CreateOrphanage} />
+        <Route path="/orphanages/:id/edit" component={CreateOrphanage} />
         <Route path="/orphanages/:id" component={Orphanage} />
       </Switch>
 
@@ -31,8 +32,7 @@ function Routes() {
       <Switch>
         <Route path="/dashboard" component={Dashboard} exact={true} />
         <Route path="/dashboard/pending-registrations" component={PendingRegistrations} />
-      </Switch>
-      
+      </Switch>   
     </BrowserRouter>
   );
 }
