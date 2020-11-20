@@ -1,17 +1,18 @@
-import React, { useEffect, forwardRef, useImperativeHandle } from 'react';
+import React, { forwardRef, useImperativeHandle } from 'react';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 
-import deleteConfirm from '../images/deleteConfirm.png'
+import deleteConfirmation from '../images/deleteConfirmation.svg'
 import '../styles/components/confirm-modal.css'
 
-interface ModalStyle {
+interface Props {
   type: string;
+  handleDelete?: (id: number) => void;
   orphanage: any;
 }
 
-const TransitionsModal = forwardRef((props: ModalStyle, ref: any) => {
+const TransitionsModal = forwardRef((props: Props, ref: any) => {
   const [open, setOpen] = React.useState(false);
 
   useImperativeHandle(
@@ -27,7 +28,8 @@ const TransitionsModal = forwardRef((props: ModalStyle, ref: any) => {
     setOpen(false);
   };
 
-  function handleDelete() {
+  function handleClickDelete() {
+    (props as any).handleDelete(props.orphanage.id)
     setOpen(false);
   }
 
@@ -51,22 +53,21 @@ const TransitionsModal = forwardRef((props: ModalStyle, ref: any) => {
             <div className="content-wrapper">
               <h2 id="transition-modal-title">Excluir! </h2>
               <p id="transition-modal-description">Você tem certeza que quer excluir</p>
-              <p>{props.orphanage.name}?</p>
+              <p>{ props.orphanage.name }?</p>
               <div className="button-wrapper">
                 <button type="button" onClick={handleClose}>
                   Voltar para a lista
                 </button>
-                <button type="button" onClick={handleDelete}>
+                <button type="button" onClick={handleClickDelete}>
                   Excluir
                 </button>
               </div>
-
             </div>
-            <img src={deleteConfirm} alt="confirmation" />
+            <img src={deleteConfirmation} alt="confirmation" />
           </div>
         </Fade>
       </Modal>
-    )}
+      ) }
     </div>
   );
 });

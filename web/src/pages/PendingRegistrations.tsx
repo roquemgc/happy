@@ -1,27 +1,49 @@
-import React, { FormEvent, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
-import OrphanageCard from '../components/OrphanageCards'
+import OrphanageCards from '../components/OrphanageCards'
+import emptyOrphanageListIcon from '../images/emptyOrphanagesList.svg'
+import '../styles/pages/dashboard.css';
 
-import '../styles/pages/pending-registrations.css'
+import api from '../services/api'
 
-function PendingRegistrations() {
+interface Orphanage {
+  id: number;
+  name: string;
+  latitude: number;
+  longitude: number;
+}
+
+export default function PendingRegistration() {
+  const [orphanages, setOrphanages] = useState<Orphanage[]>([]);
+
+  useEffect(() => {
+    api.get('orphanages').then(response => {
+        setOrphanages(response.data); 
+    }); 
+  }, []);
+
   return(
-    <div className="dashboard-item" id="pending-registration">
+    <div className="dashboard-item" id="dashboard" >
       <header>
         <h1>
-          Cadastro pendentes
+          Cadastros pendentes
         </h1>
         <p>
-          1 orfanato
+          {orphanages.length} orfanatos encontrados
         </p>
       </header>
       <main>
-        <div className="orphanage-list">
-          <OrphanageCard orphanages={[]} />
+        <div className="orphanages-list">
+          { orphanages.length ? (
+            <OrphanageCards orphanages={orphanages} />
+          ): (
+            <div className="empty-list">
+              <img src={emptyOrphanageListIcon} alt="Não há orfanatos" />
+              <p>Não há orfanatos cadastrados</p>
+            </div> 
+          )} 
         </div>
       </main>
     </div>
   );
 }
-
-export default PendingRegistrations;

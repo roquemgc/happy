@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 
 import OrphanageCards from '../components/OrphanageCards'
+import emptyOrphanageListIcon from '../images/emptyOrphanagesList.svg'
+import Zoom from '@material-ui/core/Fade';
 import '../styles/pages/dashboard.css';
 
 import api from '../services/api'
@@ -12,14 +14,22 @@ interface Orphanage {
   longitude: number;
 }
 
-function Dashboard() {
+export default function Dashboard() {
   const [orphanages, setOrphanages] = useState<Orphanage[]>([]);
+  const [checked, setChecked] = React.useState(false);
 
   useEffect(() => {
-      api.get('orphanages').then(response => {
-          setOrphanages(response.data); 
-      }); 
+    api.get('orphanages').then(response => {
+      setOrphanages(response.data); 
+    }); 
+    setChecked((prev) => !prev);
   }, []);
+
+  function handleDelete(id: number) {
+    api.delete(`orphange/${id}`).then(response => {
+      console.log(response);
+    })
+  }
 
   return(
     <div className="dashboard-item" id="dashboard" >
@@ -32,17 +42,23 @@ function Dashboard() {
         </p>
       </header>
       <main>
-        <div className="orphanages-list">
-          {orphanages ? (
-            <OrphanageCards dashboard={true} orphanages={orphanages} />
-          ): (
-            <p>Não há orfanatos cadastrados</p>
-          )} 
-          
-        </div>
+        <Zoom>
+          <div className="orphanages-list">
+            { orphanages.length ? (
+              <OrphanageCards 
+                dashboard={true} 
+                handleDelete={handleDelete} 
+                orphanages={orphanages} 
+              />
+            ): (
+              <div className="empty-list">
+                <img src={emptyOrphanageListIcon} alt="Não há orfanatos" />
+                <p>Não há orfanatos cadastrados</p>
+              </div> 
+            )} 
+          </div>
+        </Zoom>
       </main>
     </div>
   );
 }
-
-export default Dashboard;

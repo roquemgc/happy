@@ -1,4 +1,4 @@
-import React, { FormEvent, useState } from 'react'
+import React from 'react'
 import {FiArrowLeft} from 'react-icons/fi'
 import {Link} from 'react-router-dom'
 
@@ -8,15 +8,15 @@ import '../styles/pages/login.css'
 
 function Login() {
 
-  const [email, setEmail] = useState('');
-  const [userPassword, setUserPassword] = useState('');
+  // const [email, setEmail] = useState('');
+  // const [userPassword, setUserPassword] = useState('');
 
-  async function handleSubmit(event: FormEvent) {
-    const data = new FormData();
+  // async function handleSubmit(event: FormEvent) {
+  //   const data = new FormData();
 
-    data.append('email', email);
-    data.append('userPassword', userPassword);
-  }
+  //   data.append('email', email);
+  //   data.append('userPassword', userPassword);
+  // }
 
   return(
     <div id="page-login">

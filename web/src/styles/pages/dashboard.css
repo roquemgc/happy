@@ -5,7 +5,7 @@
 }
 
 .dashboard-item header {
-    margin-bottom: 25px;
+    margin-bottom: 45px;
     padding: 0 10px;
 
     display: flex;
@@ -20,5 +20,20 @@
 }
 
 .dashboard-item header p {
+    color: #8FA7B2;
+}
+
+.dashboard-item .empty-list {
+    height: 80vh;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.dashboard-item .empty-list p {
+    margin-top: 25px;
+
     color: #8FA7B2;
 }

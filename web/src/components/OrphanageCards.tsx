@@ -19,17 +19,18 @@ interface Orphanage {
 }
 
 interface Props {
-  dashboard?: boolean;
+  dashboard?: boolean;  
+  handleDelete?: (id: number) => void;
   orphanages: Orphanage[];
 }
 
 function OrphanageCard(props: Props) {
-  const [selected, setSelected] = useState(null);
+  const [orphanage, setOrphanage] = useState(null);
 
-  const childRef = useRef(ConfirmModal);
+  const childRef = useRef(ConfirmModal);  
 
   const handleOpen = (item: any) => {
-    setSelected(item);
+    setOrphanage(item);
     (childRef.current as any).handleOpen();
   }
 
@@ -75,7 +76,12 @@ function OrphanageCard(props: Props) {
           </Paper>
         </Grid>
       ))}
-      <ConfirmModal type="delete" orphanage={selected} ref={childRef} />
+      <ConfirmModal 
+        type="delete" 
+        handleDelete={props.handleDelete} 
+        orphanage={orphanage}
+        ref={childRef} 
+      />
     </Grid>
   );
 }
