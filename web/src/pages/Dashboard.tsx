@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
-import OrphanageCard from '../components/OrphanageCard'
+import OrphanageCards from '../components/OrphanageCards'
 import '../styles/pages/dashboard.css';
 
 import api from '../services/api'
@@ -13,7 +13,6 @@ interface Orphanage {
 }
 
 function Dashboard() {
-
   const [orphanages, setOrphanages] = useState<Orphanage[]>([]);
 
   useEffect(() => {
@@ -35,7 +34,7 @@ function Dashboard() {
       <main>
         <div className="orphanages-list">
           {orphanages ? (
-            <OrphanageCard dashboard={true} orphanages={orphanages} />
+            <OrphanageCards dashboard={true} orphanages={orphanages} />
           ): (
             <p>Não há orfanatos cadastrados</p>
           )} 

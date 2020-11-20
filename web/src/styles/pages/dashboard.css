@@ -1,7 +1,7 @@
 .dashboard-item {
     width: calc(100% - 80px);
-    padding: 25px;
-    float: right
+    padding: 25px 10vw;
+    float: right;
 }
 
 .dashboard-item header {

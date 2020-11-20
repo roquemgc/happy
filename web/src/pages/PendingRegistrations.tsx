@@ -1,6 +1,6 @@
 import React, { FormEvent, useState } from 'react'
 
-import OrphanageCard from '../components/OrphanageCard'
+import OrphanageCard from '../components/OrphanageCards'
 
 import '../styles/pages/pending-registrations.css'
 
@@ -17,7 +17,7 @@ function PendingRegistrations() {
       </header>
       <main>
         <div className="orphanage-list">
-          {/* <OrphanageCard orphanages={[1, 'roque']} /> */}
+          <OrphanageCard orphanages={[]} />
         </div>
       </main>
     </div>

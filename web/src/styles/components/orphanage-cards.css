@@ -1,5 +1,4 @@
 .orphanage-card {
-  width: 450px;
   overflow: hidden;
 
   border: 1px solid #D3E2E5;
@@ -7,7 +6,7 @@
   background-color: #FFF;
 } 
 
-.orphanage-card .orphanage-menu {
+.orphanage-card .card-menu {
   padding: 12px 25px;
 
   display: flex;
@@ -15,17 +14,18 @@
   justify-content: space-between;
 }
 
-.orphanage-card .orphanage-menu h2 {
+.orphanage-card .card-menu h2 {
   color: #4D6F80;
   font-size: 24px;
 }
 
-.orphanage-card .orphanage-menu .button-container {
+.orphanage-card .card-menu .actions-container {
   display: flex;
   justify-content: space-between;
 }
 
-.orphanage-card .orphanage-menu a {
+.orphanage-card .card-menu .actions-container a,
+.orphanage-card .card-menu .actions-container button {
   height: 35px;
   width: 38px;
 
@@ -33,10 +33,13 @@
   justify-content: center;
   align-items: center;
   
+  outline: none;
+  cursor: pointer;
+  border: 0;
   border-radius: 8px;
   background-color: #EBF2F5;
 }
 
-.orphanage-card .orphanage-menu a + a {
+.orphanage-card .card-menu .actions-container button {
   margin-left: 10px;
 }
