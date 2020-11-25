@@ -1,13 +1,12 @@
-#page-login {
+html, body, #root, #root>#page-handle-user {
+  height: 100%;
+}
+#page-handle-user {
   display: flex;
   justify-content: space-between;
-}
+} 
 
-#page-login.forgot-password-page {
-  height: 100vh;
-}
-
-#page-login .landing-content {
+#page-handle-user .landing-content {
   width: 100%;
   background: linear-gradient(329.54deg, #29B6D1 0%, #00C7C7 100%);
   
@@ -17,7 +16,7 @@
   flex-direction: column;
 }
 
-#page-login .landing-content .location {
+#page-handle-user .landing-content .location {
   font-size: 24px;
   line-height: 34px;
   margin-top: 80px;
@@ -27,8 +26,8 @@
   text-align: center;
 }
 
-#page-login main {
-  height: 100vh;
+#page-handle-user main {
+  height: 100%;
 
   display: flex;
   align-items: center;
@@ -37,27 +36,29 @@
   background: #FFFFFF; 
 }
 
-#page-login main .back-page {
+#page-handle-user main .back-page {
   width: 48px;
   height: 48px;
-
   margin: 25px 25px 0 auto;
 
   display: flex;
   justify-content: center;
   align-items: center;
 
+  cursor: pointer;
+  outline: none;
+  border: 0;
   border-radius: 16px;
   background: #EBF2F5;
 }
 
-form.login-form {
+form.user-form{
   width: 520px;
 
   padding: 30px 80px 64px;
 }
 
-form.login-form p {
+form.user-form p {
   display: block;
   margin-bottom: 45px;
 
@@ -65,11 +66,11 @@ form.login-form p {
   font-size: 18px;
 }
 
-form.login-form fieldset {
+form.user-form fieldset {
   border: 0;
 }
 
-form.login-form fieldset legend {
+form.user-form fieldset legend {
   width: 100%;
 
   font-size: 32px;
@@ -80,18 +81,18 @@ form.login-form fieldset legend {
   margin-bottom: 35px;
 }
 
-form.login-form .input-block + .input-block {
+form.user-form .input-block + .input-block {
   margin-top: 24px;
 }
 
-form.login-form .input-block label {
+form.user-form .input-block label {
   display: flex;
   color: #8FA7B3;
   margin-bottom: 8px;
   line-height: 24px;
 }
 
-form.login-form .input-block input {
+form.user-form .input-block input {
   width: 100%;
 
   height: 64px;
@@ -105,7 +106,7 @@ form.login-form .input-block input {
 }
 
 /* CSS específico para o input de checkbox */
-form.login-form .input-checkbox {
+form.user-form .input-checkbox {
   float: left;
 
   -webkit-user-select: none;
@@ -115,7 +116,7 @@ form.login-form .input-checkbox {
 }
 
 /* Esconder o checkbox padrão do navegador */
-form.login-form .input-checkbox #remind-me{
+form.user-form .input-checkbox #remind-me{
   height: 26px;
   width: 26px;
 
@@ -125,7 +126,7 @@ form.login-form .input-checkbox #remind-me{
 }
 
 /* Criar o checkbox customizado */
-form.login-form .input-checkbox .checkmark {
+form.user-form .input-checkbox .checkmark {
   width: 26px;
   height: 26px;
   cursor: pointer;
@@ -135,26 +136,26 @@ form.login-form .input-checkbox .checkmark {
   border: 1px solid #D3E2E5;
 }
 
-form.login-form .input-checkbox:hover .checkmark {
+form.user-form .input-checkbox:hover .checkmark {
   background-color: #ccc;
 }
 
-form.login-form .input-checkbox #remind-me:checked ~ .checkmark {
+form.user-form .input-checkbox #remind-me:checked ~ .checkmark {
   background-color: #37C77F;
 }
 
-form.login-form .input-checkbox .checkmark:after {
+form.user-form .input-checkbox .checkmark:after {
   content: "";
   position: absolute;
   display: none;
 }
 
-form.login-form .input-checkbox #remind-me:checked ~ .checkmark:after {
+form.user-form .input-checkbox #remind-me:checked ~ .checkmark:after {
   display: block;
 }
 
 /* Cria a seta que indica a checkbox marcado */
-form.login-form .input-checkbox .checkmark:after {
+form.user-form .input-checkbox .checkmark:after {
   width: 5px;
   height: 10px;
   margin: 4px 0 0 8px;
@@ -166,14 +167,14 @@ form.login-form .input-checkbox .checkmark:after {
   transform: rotate(45deg);
 }
 
-form.login-form #forgot-password  {
+form.user-form #forgot-password  {
   margin-top: 24px;
   text-decoration: none;
   color: #8FA7B2;
   float: right;
 }
 
-form.login-form button.confirm-button {
+form.user-form button.confirm-button {
   margin-top: 64px;
 
   width: 100%;

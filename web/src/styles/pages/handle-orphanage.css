@@ -30,7 +30,7 @@ form.create-orphanage-form fieldset {
 }
 
 form.create-orphanage-form fieldset + fieldset {
-  margin-top: 80px;
+  margin: 80px 0 65px;
 }
 
 form.create-orphanage-form fieldset legend {
@@ -145,14 +145,23 @@ form.create-orphanage-form .input-block .button-select button:last-child {
   border-left: 0;
 }
 
-form.create-orphanage-form button.confirm-button {
-  margin-top: 64px;
+form.create-orphanage-form .edit-container {
+  margin: 0 -80px -64px;
+  height: 160px;
 
-  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  border-top: 1px solid #D3E2E5;
+  background: #F5F8FA;
+}
+
+form.create-orphanage-form .edit-container button,
+form.create-orphanage-form button.confirm-button {
   height: 64px;
   border: 0;
   cursor: pointer;
-  background: #3CDC8C;
   border-radius: 20px;
   color: #FFFFFF;
   font-weight: 800;
@@ -163,11 +172,29 @@ form.create-orphanage-form button.confirm-button {
 
   transition: background-color 0.2s;
 }
-
+form.create-orphanage-form .edit-container svg,
 form.create-orphanage-form button.confirm-button svg {
-  margin-right: 16px;
+  margin-right: 14px;
+}
+
+form.create-orphanage-form button.refuse-button {
+  width: 38%;
+  background: #FF669D;
+}
+
+form.create-orphanage-form button.accept-button {
+  width: 38%;
+  background: #3CDC8C;
+  margin-left: 25px;
+}
+
+form.create-orphanage-form button.confirm-button {
+  margin-top: 25px;
+  width: 100%;
+  background: #3CDC8C;
 }
 
 form.create-orphanage-form button.confirm-button:hover {
+  width: 100%;
   background: #36CF82;
 }

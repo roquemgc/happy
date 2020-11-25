@@ -2,16 +2,14 @@ import React from 'react'
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
 
 import Landing from './pages/Landing';
-import Login from './pages/Login';
-import ForgotPassword from './pages/ForgotPassword'
+import HandleUser from './pages/HandleUser';
 
-import Sidebar from './components/Sidebar'
 import Dashboard from './pages/Dashboard'
 import PendingRegistrations from './pages/PendingRegistrations'
 
 import OrphanagesMap from './pages/OrphanagesMap'
 import Orphanage from './pages/Orphanage'
-import CreateOrphanage from './pages/CreateOrphanage'
+import HandleOrphanage from './pages/HandleOrphanage'
 
 function Routes() {
     return (
@@ -20,15 +18,15 @@ function Routes() {
         <Route path="/" exact component={Landing} />
         <Route path="/app" component={OrphanagesMap} />
 
-        <Route path="/login" component={Login} />
-        <Route path="/forgot-password" component={ForgotPassword} />
+        <Route path="/login" component={HandleUser} />
+        <Route path="/forgot-password" component={HandleUser} />
+        <Route path="/password-reset" component={HandleUser} />
 
-        <Route path="/orphanages/create" component={CreateOrphanage} />
-        <Route path="/orphanages/:id/edit" component={CreateOrphanage} />
+        <Route path="/orphanages/create" component={HandleOrphanage} />
+        <Route path="/orphanages/:id/edit" component={HandleOrphanage} />
         <Route path="/orphanages/:id" component={Orphanage} />
       </Switch>
 
-      <Sidebar dashboard={true}></Sidebar>
       <Switch>
         <Route path="/dashboard" component={Dashboard} exact={true} />
         <Route path="/dashboard/pending-registrations" component={PendingRegistrations} />

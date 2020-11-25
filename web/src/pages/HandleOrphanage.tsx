@@ -3,10 +3,10 @@ import { Map, Marker, TileLayer,  } from 'react-leaflet';
 import { LeafletMouseEvent } from 'leaflet'
 import { useHistory, useParams } from "react-router-dom";
 
-import { FiPlus } from "react-icons/fi";
+import { FiPlus, FiXCircle, FiCheck } from "react-icons/fi";
 
 import api from "../services/api";
-import '../styles/pages/create-orphanage.css';
+import '../styles/pages/handle-orphanage.css';
 import Sidebar from "../components/Sidebar";  
 import mapIcon from '../utils/mapIcon'
 
@@ -14,7 +14,7 @@ interface OrphanageParams {
   id: string;
 }
 
-export default function CreateOrphanage() {
+export default function HandleOrphanage() {
   const history = useHistory();
   const params = useParams<OrphanageParams>();
 
@@ -210,9 +210,16 @@ export default function CreateOrphanage() {
           </fieldset>
 
           { params.id ? (
-            <button className="confirm-button" type="submit">
-              Confirmar
-            </button>
+            <div className="edit-container">
+              <button className="refuse-button" type="submit">
+                <FiXCircle size={24} />
+                Recusar
+              </button>
+              <button className="accept-button" type="submit">
+               <FiCheck size={24} />
+                Confirmar
+              </button>
+            </div>
           ): (
             <button className="confirm-button" type="submit">
               Confirmar
