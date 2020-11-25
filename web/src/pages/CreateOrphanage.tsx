@@ -209,9 +209,16 @@ export default function CreateOrphanage() {
             </div>
           </fieldset>
 
-          <button className="confirm-button" type="submit">
-            Confirmar
-          </button>
+          { params.id ? (
+            <button className="confirm-button" type="submit">
+              Confirmar
+            </button>
+          ): (
+            <button className="confirm-button" type="submit">
+              Confirmar
+            </button>
+          )}
+
         </form>
       </main>
     </div>

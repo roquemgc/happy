@@ -1,9 +1,10 @@
-import React, { useState, useRef } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { Link } from 'react-router-dom'
 
 import { Map, Marker, TileLayer,  } from 'react-leaflet';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper'
+import Fade from '@material-ui/core/Fade';
 
 import ConfirmModal from './ConfirmModal'
 import { FiTrash, FiEdit3, FiArrowRight } from 'react-icons/fi'
@@ -26,6 +27,7 @@ interface Props {
 
 function OrphanageCard(props: Props) {
   const [orphanage, setOrphanage] = useState(null);
+  const [checked, setChecked] = React.useState(false);
 
   const childRef = useRef(ConfirmModal);  
 
@@ -34,7 +36,12 @@ function OrphanageCard(props: Props) {
     (childRef.current as any).handleOpen();
   }
 
-  return ( 
+  useEffect(() => {
+    setChecked((prev) => !prev);
+  }, []);
+
+  return (
+    <Fade in={checked} >
     <Grid container spacing={5}>
       {props.orphanages.map((orphanage) => (
         <Grid key={orphanage.id} item xs={6} >
@@ -83,6 +90,7 @@ function OrphanageCard(props: Props) {
         ref={childRef} 
       />
     </Grid>
+    </Fade> 
   );
 }
 
