@@ -143,10 +143,9 @@ export default {
     async delete(request: Request, response: Response) {
         const orphanagesRepository = getRepository(Orphanage);
 
-        const orphanages = await orphanagesRepository.find({
-            relations: ['images']
-        });
+        const { id } = request.params
+        orphanagesRepository.delete(id);
 
-        return response.json(orphanageView.renderMany(orphanages))
+        return response.status(202).json({});
     }
 }
