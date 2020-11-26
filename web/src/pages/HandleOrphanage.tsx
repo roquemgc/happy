@@ -1,4 +1,4 @@
-import React, { useEffect, useState, FormEvent, ChangeEvent } from "react";
+import React, { useEffect, useState, useRef, FormEvent, ChangeEvent } from "react";
 import { Map, Marker, TileLayer,  } from 'react-leaflet';
 import { LeafletMouseEvent } from 'leaflet'
 import { useHistory, useParams } from "react-router-dom";
@@ -8,6 +8,7 @@ import { FiPlus, FiXCircle, FiCheck } from "react-icons/fi";
 import api from "../services/api";
 import '../styles/pages/handle-orphanage.css';
 import Sidebar from "../components/Sidebar";  
+import ConfirmModal from '../components/ConfirmModal'
 import mapIcon from '../utils/mapIcon'
 
 interface OrphanageParams {
@@ -17,17 +18,16 @@ interface OrphanageParams {
 export default function HandleOrphanage() {
   const history = useHistory();
   const params = useParams<OrphanageParams>();
+  const childRef = useRef(ConfirmModal);  
 
   const [position, setPosition] = useState({ latitude: -22.9, longitude: -47.2 });
   const [name, setName] = useState('');
   const [about, setAbout] = useState('');
-
   const [images, setImages] = useState<File[]>([]);
   const [previewImages, setPreviewImages] = useState<string[]>([]);
-
   const [instructions, setInstructions] = useState('');
   const [opening_hours, setOpeningHours] = useState('');
-  const [open_on_weekends, setOpenOnWeekends] = useState(true)
+  const [open_on_weekends, setOpenOnWeekends] = useState(true);
 
   useEffect(() => {
     // Se for passado um ID por parâmetro a tela será de edição de orfanato
@@ -103,6 +103,10 @@ export default function HandleOrphanage() {
 
       history.push('/app');
     }
+  }
+
+  const handleOpen = () => {
+    (childRef.current as any).handleOpen();
   }
 
   return (
@@ -221,12 +225,16 @@ export default function HandleOrphanage() {
               </button>
             </div>
           ): (
-            <button className="confirm-button" type="submit">
+            <button className="confirm-button" type="button" onClick={() => handleOpen()}>
               Confirmar
             </button>
           )}
-
         </form>
+        <ConfirmModal 
+          type="success"
+          orphanage={name} 
+          ref={childRef} 
+        />
       </main>
     </div>
   );

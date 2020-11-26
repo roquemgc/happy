@@ -11,10 +11,10 @@
   outline: none;
 
   border-radius: 5px;
-  background-color: #FF669D;
 }
 
 .modal .paper .content-wrapper {
+  max-width: 500px;
   margin-right: 45px;
 
   display: flex;
@@ -30,6 +30,10 @@
   font-weight: 800;
 }
 
+.modal .paper .content-wrapper p#transition-modal-description {
+  text-align: center;
+}
+
 .modal .paper .content-wrapper button {
   margin-top: 55px;
   padding: 10px 25px;
@@ -40,15 +44,14 @@
 
   border: 0;
   border-radius: 8px;
-  background-color: #D20769;
   transition: background-color 0.2s;
 }
 
-.modal .paper .content-wrapper button + button {
+.modal .paper .content-wrapper button.delete-confirmation {
   background-color: #A00651;
   margin-left: 15px;
 }
 
-.modal .paper .content-wrapper button:hover {
+.modal .paper .content-wrapper button.delete-confirmation:hover {
   background-color: #BB055D;
 }
