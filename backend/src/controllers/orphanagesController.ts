@@ -4,6 +4,7 @@ import orphanageView from '../views/orphanages_view'
 import * as Yup from 'yup'
 
 import Orphanage from '../models/Orphanage'
+import User from '../models/User'
 
 export default {
 
@@ -141,11 +142,30 @@ export default {
     },
 
     async delete(request: Request, response: Response) {
+        const { id } = request.params
         const orphanagesRepository = getRepository(Orphanage);
 
-        const { id } = request.params
         orphanagesRepository.delete(id);
 
         return response.status(202).json({});
+    },
+
+    async acceptOrRefuse(request: Request, response: Response) {
+        const { id, acceptedOrRefused } = request.body;
+        const orphanagesRepository = getRepository(Orphanage);
+
+        if(acceptedOrRefused) {
+            const orphanage = new Orphanage();
+            // If was accepted, pending is now false
+            orphanage.pending = !acceptedOrRefused;
+
+            orphanagesRepository.update({ id: id }, orphanage);
+
+            return response.status(202).send('Orphanage was accepted');
+        } else {
+            orphanagesRepository.delete(id);
+
+            return response.status(202).send('Orphanage was denied');
+        }
     }
 }
