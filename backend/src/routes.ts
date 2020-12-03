@@ -8,7 +8,7 @@ import usersController from './controllers/usersController';
 const routes = Router(); 
 const upload = multer(uploadConfig);
 
-routes.get('/user/:id');
+routes.get('/user/:id', usersController.show);
 routes.post('/user', usersController.create);
 
 routes.get('/orphanages', orphanagesController.index);

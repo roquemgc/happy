@@ -1,4 +1,5 @@
 import { Entity, Column, PrimaryGeneratedColumn } from "typeorm"
+import * as bcrypt from "bcrypt";
 
 @Entity('users')
 export default class User {
@@ -10,4 +11,12 @@ export default class User {
 
     @Column()
     password: string;
+
+    hashPassword() {
+        this.password = bcrypt.hashSync(this.password, 8);
+    }
+
+    checkIfUnencryptedPasswordIsValid(unencryptedPassword: string) {
+        return bcrypt.compareSync(unencryptedPassword, this.password);
+    }
 }
