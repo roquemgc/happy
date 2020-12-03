@@ -14,8 +14,8 @@ routes.get('/user/:id', [checkJwt], usersController.show);
 routes.post('/user', [checkJwt], usersController.create);
 routes.delete('/user/:id', [checkJwt], usersController.delete);
 
-routes.post('/user/login', authController.login);
-routes.post("/user/change-password", [checkJwt], authController.changePassword);
+routes.post('/auth/login', authController.login);
+routes.post("/auth/change-password", [checkJwt], authController.changePassword);
 
 routes.put('/orphanage/:id', [checkJwt], upload.array('images'), orphanagesController.update);
 routes.delete('/orphanage/:id', [checkJwt], orphanagesController.delete);

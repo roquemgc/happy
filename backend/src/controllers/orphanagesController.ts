@@ -4,7 +4,6 @@ import orphanageView from '../views/orphanages_view'
 import * as Yup from 'yup'
 
 import Orphanage from '../models/Orphanage'
-import User from '../models/User'
 
 export default {
 
@@ -87,58 +86,58 @@ export default {
     },
 
     async update(request: Request, response: Response) {
-        // const {
-        //     name,
-        //     latitude,
-        //     longitude,
-        //     about,
-        //     instructions,
-        //     opening_hours,
-        //     open_on_weekends
-        // } = request.body;
+        const {
+            name,
+            latitude,
+            longitude,
+            about,
+            instructions,
+            opening_hours,
+            open_on_weekends
+        } = request.body;
 
-        // const orphanagesRepository = getRepository(Orphanage);
+        const orphanagesRepository = getRepository(Orphanage);
 
-        // const requestImages = request.files as Express.Multer.File[];
-        // const images = requestImages.map(image => {
-        //     return { path: image.filename }
-        // });
+        const requestImages = request.files as Express.Multer.File[];
+        const images = requestImages.map(image => {
+            return { path: image.filename }
+        });
     
-        // const data ={
-        //     name,
-        //     latitude,
-        //     longitude,
-        //     about,
-        //     instructions,
-        //     opening_hours,
-        //     open_on_weekends: open_on_weekends === 'true',
-        //     images
-        // };
+        const data ={
+            name,
+            latitude,
+            longitude,
+            about,
+            instructions,
+            opening_hours,
+            open_on_weekends: open_on_weekends === 'true',
+            images
+        };
 
-        // const schema = Yup.object().shape({
-        //     name: Yup.string().required('Nome obrigatório'),
-        //     latitude: Yup.number().required(),
-        //     longitude: Yup.number().required(),
-        //     about: Yup.string().required().max(300),
-        //     instructions: Yup.string().required(),
-        //     opening_hours: Yup.string().required(),
-        //     open_on_weekends: Yup.boolean().required(),
-        //     images: Yup.array(
-        //         Yup.object().shape({
-        //             path: Yup.string().required()
-        //         })
-        //     )
-        // })
+        const schema = Yup.object().shape({
+            name: Yup.string().required('Nome obrigatório'),
+            latitude: Yup.number().required(),
+            longitude: Yup.number().required(),
+            about: Yup.string().required().max(300),
+            instructions: Yup.string().required(),
+            opening_hours: Yup.string().required(),
+            open_on_weekends: Yup.boolean().required(),
+            images: Yup.array(
+                Yup.object().shape({
+                    path: Yup.string().required()
+                })
+            )
+        })
 
-        // await schema.validate(data, {
-        //     abortEarly: false
-        // });
+        await schema.validate(data, {
+            abortEarly: false
+        });
 
-        // const orphanage = orphanagesRepository.create(data);
+        const orphanage = orphanagesRepository.create(data);
 
-        // await orphanagesRepository.save(orphanage);
+        await orphanagesRepository.save(orphanage);
         
-        // return response.status(201).json(orphanage).json(orphanageView.render(orphanage));
+        return response.status(201).json(orphanage).json(orphanageView.render(orphanage));
     },
 
     async delete(request: Request, response: Response) {
@@ -156,8 +155,8 @@ export default {
 
         if(acceptedOrRefused) {
             const orphanage = new Orphanage();
-            // If was accepted, pending is now false
-            orphanage.pending = !acceptedOrRefused;
+            // If was accepted, pending is not more true
+            orphanage.pending = false;
 
             orphanagesRepository.update({ id: id }, orphanage);
 
@@ -165,7 +164,7 @@ export default {
         } else {
             orphanagesRepository.delete(id);
 
-            return response.status(202).send('Orphanage was denied');
+            return response.status(202).send('Orphanage was refused');
         }
     }
 }

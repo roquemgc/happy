@@ -41,12 +41,12 @@ export default {
     //Hash the password, to securely store on DB
     user.hashPassword();
 
-    //Try to save. If fails, the username is already in use
+    //Try to save. If fails, the email is already in use
     const usersRepository = getRepository(User);
     try {
       await usersRepository.save(user);
     } catch (e) {
-      response.status(409).send('username already in use');
+      response.status(409).send('email already in use');
       return;
     }
     
@@ -101,13 +101,12 @@ export default {
     const { id } = request.params
 
     const usersRepository = getRepository(User);
-    let user: User;
     try{
-      user = await usersRepository.findOneOrFail(id);
+      await usersRepository.findOneOrFail(id);
     } catch(error) {
       return response.status(404).send('User does not exist');
     }
-
-    return response.status(202).send('User: '+ user.email + ' removed');
+    usersRepository.delete(id);
+    return response.status(202).send('User removed');
   }
 }
