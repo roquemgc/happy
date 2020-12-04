@@ -85,6 +85,7 @@ export default {
     },
 
     async update(request: Request, response: Response) {
+        const { id } = request.params;
         const {
             name,
             latitude,
@@ -95,15 +96,12 @@ export default {
             open_on_weekends
         } = request.body;
 
-        const orphanagesRepository = getRepository(Orphanage);
-
         const requestImages = request.files as Express.Multer.File[];
         const images = requestImages.map(image => {
             return { path: image.filename }
         });
 
-    
-        const data ={
+        const data = {
             name,
             latitude,
             longitude,
@@ -115,13 +113,14 @@ export default {
         };
 
         const schema = Yup.object().shape({
-            name: Yup.string().required('Nome obrigatório'),
+            name: Yup.string().required(),
             latitude: Yup.number().required(),
             longitude: Yup.number().required(),
             about: Yup.string().required().max(300),
             instructions: Yup.string().required(),
             opening_hours: Yup.string().required(),
             open_on_weekends: Yup.boolean().required(),
+            pending: Yup.boolean(),
             images: Yup.array(
                 Yup.object().shape({
                     path: Yup.string().required()
@@ -133,20 +132,30 @@ export default {
             abortEarly: false
         });
 
+        const orphanagesRepository = getRepository(Orphanage);
         const orphanage = orphanagesRepository.create(data);
 
-        await orphanagesRepository.save(orphanage);
-        
-        return response.status(201).json(orphanage).json(orphanageView.render(orphanage));
+        try{
+            orphanagesRepository.update({ id: parseInt(id) },orphanage);
+            console.log(parseInt(id));
+        } catch(error) {
+            return response.status(400).send('user does nos exist');
+        }
+
+        return response.status(201).json(orphanage);
     },
 
     async delete(request: Request, response: Response) {
         const { id } = request.params
+
         const orphanagesRepository = getRepository(Orphanage);
-
+        try{
+          await orphanagesRepository.findOneOrFail(id);
+        } catch(error) {
+          return response.status(404).send('Orphanage does not exist');
+        }
         orphanagesRepository.delete(id);
-
-        return response.status(202).json({});
+        return response.status(202).send('Orphanage removed');
     },
 
     async acceptOrRefuse(request: Request, response: Response) {

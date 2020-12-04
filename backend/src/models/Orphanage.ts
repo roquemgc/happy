@@ -1,7 +1,8 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany, JoinColumn } from "typeorm"
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany, JoinColumn, Unique } from "typeorm"
 import Image from './Image'
 
 @Entity('orphanages')
+@Unique(['name'])
 export default class Orphanage {
     @PrimaryGeneratedColumn('increment')
     id: number;
