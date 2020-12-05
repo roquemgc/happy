@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
 
-import OrphanageCards from '../components/OrphanageCards'
-import emptyOrphanageListIcon from '../images/emptyOrphanagesList.svg'
+import Grid from '@material-ui/core/Grid';
+import OrphanageCard from '../components/OrphanageCard';
+import emptyOrphanageListIcon from '../images/emptyOrphanagesList.svg';
 import '../styles/pages/dashboard.css';
 
 import api from '../services/api'
@@ -12,14 +13,15 @@ interface Orphanage {
   name: string;
   latitude: number;
   longitude: number;
+  pending: boolean;
 }
 
 export default function PendingRegistration() {
   const [orphanages, setOrphanages] = useState<Orphanage[]>([]);
 
   useEffect(() => {
-    api.get('orphanages').then(response => {
-        setOrphanages(response.data); 
+    api.get('orphanages/pending').then(response => {
+      setOrphanages(response.data); 
     }); 
   }, []);
 
@@ -36,15 +38,26 @@ export default function PendingRegistration() {
           </p>
         </header>
         <main>
-          <div className="orphanages-list">
+        <div className="orphanages-list">
             { orphanages.length ? (
-              <OrphanageCards orphanages={orphanages} />
-            ): (
+              //Caso encontre orfanatos
+              <Grid container spacing={5}>
+                {orphanages.map((orphanage) => (
+                  <Grid key={orphanage.id} item xs={6} >
+                    <OrphanageCard 
+                      orphanage={orphanage} 
+                    />
+                  </Grid>
+                ))}
+              </Grid>
+            ) : (
+              //Caso não encontre orfanatos
               <div className="empty-list">
                 <img src={emptyOrphanageListIcon} alt="Não há orfanatos" />
                 <p>Não há orfanatos cadastrados</p>
               </div> 
-            )} 
+
+            )}
           </div>
         </main>
       </div>

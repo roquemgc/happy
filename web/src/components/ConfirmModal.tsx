@@ -15,7 +15,7 @@ interface Props {
   orphanage?: any;
 }
 
-const TransitionsModal = forwardRef((props: Props, ref: any) => {
+const ConfirmModal = forwardRef((props: Props, ref: any) => {
   const history = useHistory();
 
   const [open, setOpen] = React.useState(false);
@@ -30,7 +30,7 @@ const TransitionsModal = forwardRef((props: Props, ref: any) => {
   )
 
   function handleClose() {
-    if(props.type == 'success') {
+    if(props.type === 'success') {
       history.goBack();
     }
     setOpen(false);
@@ -43,8 +43,8 @@ const TransitionsModal = forwardRef((props: Props, ref: any) => {
 
   return (
     <>
-      <style jsx>
-        { props.type == 'delete' ? (`
+      <style>
+        { props.type === 'delete' ? (`
           .modal .paper {
             background-color: #FF669D;
           }
@@ -81,7 +81,7 @@ const TransitionsModal = forwardRef((props: Props, ref: any) => {
       >
         <Fade in={open}>
 
-          { props.type == 'delete' ? (
+          { props.type === 'delete' ? (
             <div className='paper'>
               <div className="content-wrapper">
                 <h2 id="transition-modal-title">Excluir! </h2>
@@ -122,5 +122,4 @@ const TransitionsModal = forwardRef((props: Props, ref: any) => {
     </>
   );
 });
-
-export default TransitionsModal;
+export default ConfirmModal;

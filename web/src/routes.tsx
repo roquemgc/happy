@@ -22,9 +22,13 @@ function Routes() {
         <Route path="/forgot-password" component={HandleUser} />
         <Route path="/password-reset" component={HandleUser} />
 
-        <Route path="/orphanages/create" component={HandleOrphanage} />
-        <Route path="/orphanages/:id/edit" component={HandleOrphanage} />
-        <Route path="/orphanages/:id" component={Orphanage} />
+        <Route path="/orphanage/create" component={HandleOrphanage} />
+        <Route path="/orphanage/:id/edit" component={HandleOrphanage} />
+        <Route path="/orphanage/:id/accept-or-refuse" render={(props) => (
+            <HandleOrphanage {...props} acceptOrRefuse />
+          )} 
+        />
+        <Route path="/orphanage/:id" component={Orphanage} />
       </Switch>
 
       <Switch>

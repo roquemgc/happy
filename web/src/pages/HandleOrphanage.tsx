@@ -15,7 +15,11 @@ interface OrphanageParams {
   id: string;
 }
 
-export default function HandleOrphanage() {
+interface Props {
+  acceptOrRefuse?: true;
+}
+
+export default function HandleOrphanage(props: Props) {
   const history = useHistory();
   const params = useParams<OrphanageParams>();
   const childRef = useRef(ConfirmModal);  
@@ -28,11 +32,12 @@ export default function HandleOrphanage() {
   const [instructions, setInstructions] = useState('');
   const [opening_hours, setOpeningHours] = useState('');
   const [open_on_weekends, setOpenOnWeekends] = useState(true);
+  const [submitType, setSubmitType] = useState('');
 
   useEffect(() => {
     // Se for passado um ID por parâmetro a tela será de edição de orfanato
     if(params.id) {
-      api.get(`orphanages/${params.id}`).then(response => {
+      api.get(`orphanage/${params.id}`).then(response => {
         const orphanage = response.data;
         // Insere os dados originais no formulário
         setPosition({
@@ -47,6 +52,7 @@ export default function HandleOrphanage() {
       });
     }
   }, [params.id]);
+
 
   function handleMapClick(event: LeafletMouseEvent) {
     const { lat, lng } = event.latlng;
@@ -75,33 +81,43 @@ export default function HandleOrphanage() {
 
   async function handleSubmit(event: FormEvent) {
     event.preventDefault();
-    const { latitude, longitude } = position;
+    
+    if(submitType === 'refused') {
+      //Caso o usuário tenha recusado o orfanato
+      await api.put('orphanage/accept-or-refuse', {
+        id: params.id,
+        acceptOrRefused: false
+      });
 
-    const data = new FormData();
-
-    data.append('name', name);
-    data.append('about', about);
-    data.append('latitude', String(latitude));
-    data.append('longitude', String(longitude));
-    data.append('instructions', instructions);
-    data.append('opening_hours', opening_hours);
-    data.append('open_on_weekends', String(open_on_weekends));
-    images.forEach(image => {
-      data.append('images', image);
-    })
-
-    if(params.id) {
-      await api.put(`orphanages/${params.id}`, data);
-
-      alert('Edição realizada com sucesso!');
-
-      history.push('/dashboard');
     } else {
-      await api.post('orphanages', data);
-
-      alert('Cadastro realizado com sucesso!');
-
-      history.push('/app');
+      // Caso o usuario tenha editado/criado o orfanato
+      const { latitude, longitude } = position;
+      const data = new FormData();
+  
+      data.append('name', name);
+      data.append('about', about);
+      data.append('latitude', String(latitude));
+      data.append('longitude', String(longitude));
+      data.append('instructions', instructions);
+      data.append('opening_hours', opening_hours);
+      data.append('open_on_weekends', String(open_on_weekends));
+      images.forEach(image => {
+        data.append('images', image);
+      })
+  
+      if(params.id) {
+        await api.put(`orphanage/${params.id}`, data);
+  
+        alert('Edição realizada com sucesso!');
+  
+        history.push('/dashboard');
+      } else {
+        await api.post('orphanages', data);
+  
+        alert('Cadastro realizado com sucesso!');
+  
+        history.push('/app');
+      }
     }
   }
 
@@ -213,19 +229,19 @@ export default function HandleOrphanage() {
             </div>
           </fieldset>
 
-          { params.id ? (
+          { props.acceptOrRefuse ? (
             <div className="edit-container">
-              <button className="refuse-button" type="submit">
+              <button className="refuse-button" type="submit" onClick={() => setSubmitType('refused')}>
                 <FiXCircle size={24} />
                 Recusar
               </button>
               <button className="accept-button" type="submit">
                <FiCheck size={24} />
-                Confirmar
+                Aceitar
               </button>
             </div>
           ): (
-            <button className="confirm-button" type="button" onClick={() => handleOpen()}>
+            <button className="confirm-button" type="submit" onClick={() => handleOpen()}>
               Confirmar
             </button>
           )}
