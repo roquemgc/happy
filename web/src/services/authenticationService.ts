@@ -2,14 +2,12 @@ import crypto from 'crypto'
 import api from './api'
 
 export default class AuthenticationService {
-
     async doLogin (email: string, userPassowrd: string) {
         try {
-            const {data: jwt, status} = await api.post(`auth/login`, {email: email, password: userPassowrd});
-            if (status === 401) throw new Error('Usuário ou senha inválidos')
-            return jwt
+            const jwt = await api.post(`auth/login`, {email: email, password: userPassowrd});
+            return jwt;
         } catch (err) {
-           throw err
+           throw err;
         }
     }
 

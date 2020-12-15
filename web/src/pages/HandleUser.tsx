@@ -47,8 +47,11 @@ function HandleUser() {
       const isUserValid = saveJwt(jwt)
       
       isUserValid.then(() => {
-        // Se a promisse retornar true irá prosseguir
-        history.push('/dashboard');
+        // Se a promisse fo fullFilled irá prosseguir
+        history.push('/dashboard')
+      }).catch(() => {
+        // Se a promisse for rejected ira cair no catch
+        alert('Usuário ou senha incorretos');
       })
     } catch (error) {
       console.log(error);
