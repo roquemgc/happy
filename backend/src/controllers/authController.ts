@@ -14,7 +14,7 @@ export default {
     if (!(email && password)) {
       response.status(400).send();
     }
-
+    console.log(request.body);
     //Get user from database
     const userRepository = getRepository(User);
     let user = new User();
@@ -30,15 +30,15 @@ export default {
       return;
     }
 
-    //Sing JWT, valid for 1 hour
+    //Sign JWT, valid for 1 hour
     const token = jwt.sign(
-      { userId: user.id, username: user.email },
+      { userId: user.id, email: user.email },
       jwtConfig.jwtSecret,
       { expiresIn: "1h" }
     );
 
     //Send the jwt in the response
-    response.send(token);
+    response.send(token).status(200);
   },
 
   async changePassword(req: Request, response: Response) {
