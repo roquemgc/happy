@@ -14,7 +14,6 @@ export default {
     if (!(email && password)) {
       response.status(400).send();
     }
-    console.log(request.body);
     //Get user from database
     const userRepository = getRepository(User);
     let user = new User();
