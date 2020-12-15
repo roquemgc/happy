@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from 'react'
-import {FiArrowLeft} from 'react-icons/fi'
-import { Link, useLocation, useHistory } from 'react-router-dom'
+import React, { useEffect, useState, FormEvent } from 'react';
+import { Link, useLocation, useHistory } from 'react-router-dom';
+import jsonWebTokenService from 'jsonwebtoken';
+import StorageProvider from '../services/storageProvider'
+import AuthenticationService from '../services/authenticationService'
 
+import {FiArrowLeft} from 'react-icons/fi';
 import logoImg from '../images/logoTipo2.svg'
-
 import '../styles/pages/handle-user.css'
 
 function HandleUser() {
@@ -15,15 +17,12 @@ function HandleUser() {
   const [passwordReset, setPasswordReset] = useState(false);
   const [formLegend, setFormLegend] = useState('')
   const [formInstruction, setFormInstruction] = useState('')
-  // const [email, setEmail] = useState('');
-  // const [userPassword, setUserPassword] = useState('');
 
-  // async function handleSubmit(event: FormEvent) {
-  //   const data = new FormData();
+  const [email, setEmail] = useState('');
+  const [userPassword, setUserPassword] = useState('');
+  const auth = new AuthenticationService();
+  const localForage = StorageProvider;
 
-  //   data.append('email', email);
-  //   data.append('userPassword', userPassword);
-  // }
   useEffect(() => {
     if(location.pathname === '/login') {
       setFormLegend('Fazer login');
@@ -41,6 +40,35 @@ function HandleUser() {
     }
   }, [location.pathname]);
 
+  async function handleSubmit(event: FormEvent) {
+    event.preventDefault();
+    try {
+      const jwt = auth.doLogin(email, userPassword);
+      const isUserValid = saveJwt(jwt)
+      
+      isUserValid.then(() => {
+        // Se a promisse retornar true irá prosseguir
+        history.push('/dashboard');
+      })
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async function saveJwt(jwt: any) {
+    try {
+      if (jwt) {
+        const decodedJwt = jsonWebTokenService.decode(jwt)
+        await localForage.setItem('user_jwt', jwt)
+        await localForage.setItem('user_data', decodedJwt)
+        return true
+      }
+    } catch (err) {
+        if (err instanceof jsonWebTokenService.JsonWebTokenError) return false
+        throw err
+    }
+  }
+
   return(
     <div id="page-handle-user">
       <div className="landing-content">
@@ -53,11 +81,11 @@ function HandleUser() {
       </div>
       <main>
         { (login || forgotPassword) &&(
-          <button type="button" className="back-page" onClick={history.goBack}>
+          <button type="button" className="back-page" onClick={() => history.push('/')}>
             <FiArrowLeft size={26} color="rgba(21, 195, 214, 1)"></FiArrowLeft>
           </button>
         )}
-        <form className="user-form">
+        <form onSubmit={handleSubmit} className="user-form">
           <fieldset>
             <legend>{formLegend}</legend>
             { (forgotPassword || passwordReset) && (
@@ -65,14 +93,15 @@ function HandleUser() {
             ) }
 
             {login ? (
+              // Interface para o login
               <>
                 <div className="input-block">
                   <label htmlFor="email">Email</label>
-                  <input id="email" />
+                  <input type="text" id="email" onChange={event => setEmail(event.target.value)} />
                 </div>
                 <div className="input-block">
                   <label htmlFor="password">Senha</label>
-                  <input type="password" id="password" />
+                  <input type="password" id="password" onChange={event => setUserPassword(event.target.value)}/>
                 </div>
                 <div className="input-block input-checkbox">
                     <label htmlFor="remind-me">                  
@@ -86,11 +115,13 @@ function HandleUser() {
                 </Link> 
               </>
             ) : forgotPassword ? (
+              // Interface para esqueci a senha
               <div className="input-block">
                 <label htmlFor="email">Email</label>
                 <input id="email" />
               </div>
             ) : passwordReset && (
+              // Interface para a mudança de senha
               <>
                 <div className="input-block">
                   <label htmlFor="password">Senha</label>
@@ -102,11 +133,10 @@ function HandleUser() {
                 </div>
               </>
             )}
-            <Link to="/dashboard">
-              <button disabled={ false } className="confirm-button" type="submit">
-                Entrar
-              </button>
-            </Link>
+            <button disabled={ false } className="confirm-button" type="submit">
+              Entrar
+            </button>
+
           </fieldset>
         </form>
       </main>
