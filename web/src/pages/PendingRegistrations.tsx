@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import storageProvider from '../services/storageProvider'
 
 import Grid from '@material-ui/core/Grid';
 import OrphanageCard from '../components/OrphanageCard';
@@ -19,11 +20,20 @@ interface Orphanage {
 export default function PendingRegistration() {
   const [orphanages, setOrphanages] = useState<Orphanage[]>([]);
 
+  let jwt: any;
+  storageProvider.getUserJwt().then((value) => {
+    jwt = value;
+  });
   useEffect(() => {
-    api.get('orphanages/pending').then(response => {
+    api.get('orphanages/pending', {
+      headers: {
+        Authorization: 'Bearer ' +  jwt
+      }
+     }).then(response => {
       setOrphanages(response.data); 
     }); 
-  }, []);
+
+  }, [jwt]);
 
   return(
     <>

@@ -1,7 +1,6 @@
 import React, { useEffect, useState, FormEvent } from 'react';
 import { Link, useLocation, useHistory } from 'react-router-dom';
-import jsonWebTokenService from 'jsonwebtoken';
-import StorageProvider from '../services/storageProvider'
+import storageProvider from '../services/storageProvider'
 import AuthenticationService from '../services/authenticationService'
 
 import {FiArrowLeft} from 'react-icons/fi';
@@ -21,7 +20,6 @@ function HandleUser() {
   const [email, setEmail] = useState('');
   const [userPassword, setUserPassword] = useState('');
   const auth = new AuthenticationService();
-  const localForage = StorageProvider;
 
   useEffect(() => {
     if(location.pathname === '/login') {
@@ -43,11 +41,11 @@ function HandleUser() {
   async function handleSubmit(event: FormEvent) {
     event.preventDefault();
     try {
-      const jwt = auth.doLogin(email, userPassword);
-      const isUserValid = saveJwt(jwt)
-      
+      const jwt = await auth.doLogin(email, userPassword);
+      const isUserValid = storageProvider.saveJwt(jwt)
+
       isUserValid.then(() => {
-        // Se a promisse fo fullFilled irá prosseguir
+        // Se a promisse for fullFilled irá prosseguir
         history.push('/dashboard')
       }).catch(() => {
         // Se a promisse for rejected ira cair no catch
@@ -58,19 +56,6 @@ function HandleUser() {
     }
   }
 
-  async function saveJwt(jwt: any) {
-    try {
-      if (jwt) {
-        const decodedJwt = jsonWebTokenService.decode(jwt)
-        await localForage.setItem('user_jwt', jwt)
-        await localForage.setItem('user_data', decodedJwt)
-        return true
-      }
-    } catch (err) {
-        if (err instanceof jsonWebTokenService.JsonWebTokenError) return false
-        throw err
-    }
-  }
 
   return(
     <div id="page-handle-user">
