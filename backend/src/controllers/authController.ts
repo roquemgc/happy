@@ -29,11 +29,11 @@ export default {
       return;
     }
 
-    //Sign JWT, valid for 1 hour
+    //Sign JWT, valid for 24 hours
     const token = jwt.sign(
       { userId: user.id, email: user.email },
       jwtConfig.jwtSecret,
-      { expiresIn: "1h" }
+      { expiresIn: "24h" }
     );
 
     //Send the jwt in the response
