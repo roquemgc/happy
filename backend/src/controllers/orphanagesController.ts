@@ -93,7 +93,6 @@ export default {
         try {
             await orphanagesRepository.save(orphanage);
           } catch (e) {
-            console.log(e);
             response.status(409).send('orphanage name already in use');
             return;
           }
