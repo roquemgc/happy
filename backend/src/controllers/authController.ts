@@ -2,7 +2,6 @@ import { Request, Response } from "express";
 import * as jwt from "jsonwebtoken";
 import { getRepository } from "typeorm";
 import jwtConfig from '../config/jwtConfig'
-import * as Yup from 'yup'
 
 import User from '../models/User'
 
